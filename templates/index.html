@@ -23,46 +23,85 @@
     </div>
   </div>
 </nav>
-<div class="container-sm">
+
+<div class="container">
+<form>
+<div class="form-group input-group">
+    	<label for="citiesDataList" class="form-label">City</label>
+	<input class="form-control" list="cities" id="citiesDataList" placeholder="Type to search...">
+	<datalist id="cities">
+		{% for city in cities %}
+		<option value="{{city}}">
+		{%endfor%}
+	</datalist>
+</div>
 <h1>Make A Short URL</h1>
-{% for i in inputs.keys() %}
-{% if inputs[i] is integer %}
-<div class="form-control">
-  <label class="form-label" for="flexCheckDefault">
-	  {{i}} 
-  </label>
-  <input class="form-control" type="number" id="flexCheckDefault">
+<label for="property_type" class="form-label">What type of property is it?</label>
+<select class="form-select" id="property_type" data-live-search="true" aria-label="Default select example">
+  <option value="property_type_APARTMENT_BLOCK">Apartment</option>
+  <option value="property_type_BUNGALOW">Bungalow</option>
+  <option value="property_type_CASTLE">Castle</option>
+  <option value="property_type_CHALET">Chalet</option>
+  <option value="property_type_COUNTRY_COTTAGE">Country cottage</option>
+  <option value="property_type_EXCPTIONAL_PROPERTY">Exceptional property</option>
+  <option value="property_type_FARMHOUSE">Farmhouse</option>
+  <option selected value="property_type_HOUSE">House</option>
+  <option value="property_type_MANOR HOUSE">Manor house</option>
+  <option value="property_type_MANSION">Mansion</option>
+  <option value="property_type_MIXED_USE_BUILDING">Mixed use building</option>
+  <option value="property_type_OTHER_PROPERTY">Other property</option>
+  <option value="property_type_TOWN_HOUSE">Town house</option>
+  <option value="property_type_VILLA">Villa</option>
+</select>	
+
+<div class="form-range">
+	<div class="input-group">
+		<span class="input-group-text">Total land area:</span>
+		<input type="number" id="rangeTotal" onchange="land-area.value=value">
+		<span class="input-group-text">m2</span>
+		<input id="land-area" type="range" name="range" min="0" max="500000" value="0" onchange="rangeTotal.value=value">
+	<div/>
+	<div class="input-group">
+		<span class="input-group-text">Total living area:</span>
+		<input type="number" id="rangeLiving" value=0 onchange="living-area.value=value">
+		<span class="input-group-text">m2</span>
+		<input id="living-area" type="range" name="range" min="0" max="6500" value="0" onchange="rangeLiving.value=value">
+	<div/>
+	<div class="input-group">
+		<span class="input-group-text">Number of bedrooms:</span>
+		<input type="number" id="rangeBedroom" value=1 onchange="Bedrooms.value=value">
+		<input id="Bedrooms" type="range" name="range" min="1" max="350" value="1" onchange="rangeBedroom.value=value">
+	</div>
 </div>
-{% elif inputs[i] is string %}
-<div class="form-control">
-  <label class="form-label" for="flexCheckDefault">
-	  {{i}}
-  </label>
-  <input class="form-control" type="text" id="flexCheckDefault">
-</div>
-{% elif inputs[i] is sequence %}
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-  <label class="form-check-label" for="flexCheckDefault">
-	  {{i}}
-  </label>
-</div>
-{% elif inputs[i] is true %}
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-  <label class="form-check-label" for="flexCheckDefault">
-	  {{i}}
-  </label>
-</div>
-{% elif inputs[i] is float %}
-<div class="form-control">
-  <input class="form-control" type="number" id="flexCheckDefault">
-  <label class="form-label" for="flexCheckDefault">
-	  {{i}} 
-  </label>
-</div>
-{% endif %}
-{% endfor %}
+
+
+<div class="form-"> 
+	<div class="form-check">
+  		<input class="form-check-input" type="checkbox" value="" id="Kitchen">
+  		<label class="form-check-label" for="Kitchen">Kitchen</label>
+	</div>
+	<div class="form-check">
+  		<input class="form-check-input" type="checkbox" value="" id="Furnished">
+  		<label class="form-check-label" for="Furnished">Furnished</label>
+	</div>
+	<div class="form-check">
+  		<input class="form-check-input" type="checkbox" value="" id="Fireplace">
+  		<label class="form-check-label" for="Fireplace">Open fireplace</label>
+	</div>
+	<div class="form-check">
+  		<input class="form-check-input" type="checkbox" value="" id="Terrace">
+  		<label class="form-check-label" for="Terrace">Terrace</label>
+	</div>
+	<div class="form-check">
+  		<input class="form-check-input" type="checkbox" value="" id="Garden">
+  		<label class="form-check-label" for="Garden">Garden</label>
+	</div>
+	<div class="form-check">
+  		<input class="form-check-input" type="checkbox" value="" id="Pool">
+  		<label class="form-check-label" for="Pool">Pool</label>
+	</div>
+
+</form>
 </div>
 </body>
 </html> 
