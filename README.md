@@ -36,15 +36,39 @@ This should give you a fancier version of the README, you might even be there ri
 
 ### Response
 
-    HTTP/1.1 201 Created
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 201 Created
-    Connection: close
-    Content-Type: application/json
-    Location: /thing/1
-    Content-Length: 36
-
-    {"id":1,"name":"Foo","status":"new"}
+```json
+{
+    "Send requests to /predict following this format": {
+        "Bedrooms": "int",
+        "City": "String containing a belgian city",
+        "Condition": "bool",
+        "Fireplace": "bool",
+        "Furnished": "bool",
+        "Garden": "bool",
+        "Kitchen": "bool",
+        "Land area": "int",
+        "Living area": "int",
+        "Pool": "bool",
+        "Property": [
+            "APARTMENT_BLOCK",
+            "BUNGALOW",
+            "CASTLE",
+            "CHALET",
+            "COUNTRY_COTTAGE",
+            "EXCEPTIONAL_PROPERTY",
+            "FARMHOUSE",
+            "HOUSE",
+            "MANOR_HOUSE",
+            "MANSION",
+            "MIXED_USE_BUILDING",
+            "OTHER_PROPERTY",
+            "TOWN_HOUSE",
+            "VILLA"
+        ],
+        "Terrace": "bool"
+    }
+}
+```
 
 ## Go through the web portal
 
@@ -78,4 +102,8 @@ Webpage
 
 ### Response
 
-Webpage
+```json
+{
+    "prediction": 234665.0
+}
+```
