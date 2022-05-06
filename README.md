@@ -6,33 +6,33 @@ The application provides both a web interface to predict your data and routes to
 
 # Install
 
-    The required packages are stored in requirements.txt so if you want to run the app straight through Flask, this can be done with `pip installl requirements.txt`
+The required packages are stored in requirements.txt so if you want to run the app straight through Flask, this can be done with:
     
-    Alternatively yoy can access the Heroku app on https://challenge-model-deployment.herokuapp.com/
+`pip install requirements.txt`
+   
+Alternatively yoy can access the Heroku app on https://challenge-model-deployment.herokuapp.com/
     
-    Or you could run the app from the Docker image, whatever suits your fancy.
+Or you could run the app from the Docker image, whatever suits your fancy.
 
 # API
 
 The API provides the following routes.
 
-## Go through the web portal
+## Get the documentation
 
 ### Request
 
-`GET /web/`
+`GET /`
 
 ### Response
 
-This should give you access to the web portal.
+This should give you a fancier version of the README, you might even be there right now.
 
-## 
+## Get the prediction json layout
 
 ### Request
 
-`POST /thing/`
-
-    curl -i -H 'Accept: application/json' -d 'name=Foo&status=new' http://localhost:7000/thing
+`POST /`
 
 ### Response
 
@@ -46,282 +46,36 @@ This should give you access to the web portal.
 
     {"id":1,"name":"Foo","status":"new"}
 
-## Get a specific Thing
+## Go through the web portal
 
 ### Request
 
-`GET /thing/id`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
+`GET /web/`
 
 ### Response
 
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 36
+This should give you access to the web portal.
 
-    {"id":1,"name":"Foo","status":"new"}
-
-## Get a non-existent Thing
+## Get the prediction json layout and instructions in the web portal
 
 ### Request
 
-`GET /thing/id`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/9999
+`GET /predict`
 
 ### Response
 
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 35
+Webpage
 
-    {"status":404,"reason":"Not found"}
-
-## Create another new Thing
+## Predict price using data provided
 
 ### Request
 
-`POST /thing/`
+`POST /predict`
 
-    curl -i -H 'Accept: application/json' -d 'name=Bar&junk=rubbish' http://localhost:7000/thing
+#### Data layout
 
-### Response
-
-    HTTP/1.1 201 Created
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 201 Created
-    Connection: close
-    Content-Type: application/json
-    Location: /thing/2
-    Content-Length: 35
-
-    {"id":2,"name":"Bar","status":null}
-
-## Get list of Things again
-
-### Request
-
-`GET /thing/`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/
+![Just look it up](/static/request_layout.png?raw=true)
 
 ### Response
 
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 74
-
-    [{"id":1,"name":"Foo","status":"new"},{"id":2,"name":"Bar","status":null}]
-
-## Change a Thing's state
-
-### Request
-
-`PUT /thing/:id/status/changed`
-
-    curl -i -H 'Accept: application/json' -X PUT http://localhost:7000/thing/1/status/changed
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 40
-
-    {"id":1,"name":"Foo","status":"changed"}
-
-## Get changed Thing
-
-### Request
-
-`GET /thing/id`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 40
-
-    {"id":1,"name":"Foo","status":"changed"}
-
-## Change a Thing
-
-### Request
-
-`PUT /thing/:id`
-
-    curl -i -H 'Accept: application/json' -X PUT -d 'name=Foo&status=changed2' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Foo","status":"changed2"}
-
-## Attempt to change a Thing using partial params
-
-### Request
-
-`PUT /thing/:id`
-
-    curl -i -H 'Accept: application/json' -X PUT -d 'status=changed3' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Foo","status":"changed3"}
-
-## Attempt to change a Thing using invalid params
-
-### Request
-
-`PUT /thing/:id`
-
-    curl -i -H 'Accept: application/json' -X PUT -d 'id=99&status=changed4' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Foo","status":"changed4"}
-
-## Change a Thing using the _method hack
-
-### Request
-
-`POST /thing/:id?_method=POST`
-
-    curl -i -H 'Accept: application/json' -X POST -d 'name=Baz&_method=PUT' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Baz","status":"changed4"}
-
-## Change a Thing using the _method hack in the url
-
-### Request
-
-`POST /thing/:id?_method=POST`
-
-    curl -i -H 'Accept: application/json' -X POST -d 'name=Qux' http://localhost:7000/thing/1?_method=PUT
-
-### Response
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: text/html;charset=utf-8
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Delete a Thing
-
-### Request
-
-`DELETE /thing/id`
-
-    curl -i -H 'Accept: application/json' -X DELETE http://localhost:7000/thing/1/
-
-### Response
-
-    HTTP/1.1 204 No Content
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 204 No Content
-    Connection: close
-
-
-## Try to delete same Thing again
-
-### Request
-
-`DELETE /thing/id`
-
-    curl -i -H 'Accept: application/json' -X DELETE http://localhost:7000/thing/1/
-
-### Response
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Get deleted Thing
-
-### Request
-
-`GET /thing/1`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:33 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Delete a Thing using the _method hack
-
-### Request
-
-`DELETE /thing/id`
-
-    curl -i -H 'Accept: application/json' -X POST -d'_method=DELETE' http://localhost:7000/thing/2/
-
-### Response
-
-    HTTP/1.1 204 No Content
-    Date: Thu, 24 Feb 2011 12:36:33 GMT
-    Status: 204 No Content
-    Connection: close
-
+Webpage
