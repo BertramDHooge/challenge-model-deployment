@@ -1,4 +1,5 @@
-# Model deployment challenge using Docker and Heroku
+# Model deployment challenge 
+## using Docker and Heroku
 
 This is an application deployed to Heroku to predict housing prices using the dataset scraped in a previous project.
 
