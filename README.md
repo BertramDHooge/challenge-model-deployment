@@ -1,54 +1,32 @@
-# REST API example application
+# Model deployment challenge using Docker and Heroku
 
-This is a bare-bones example of a Sinatra application providing a REST
-API to a DataMapper-backed model.
+This is an application deployed to Heroku to predict housing prices using the dataset scraped in a previous project.
 
-The entire application is contained within the `app.rb` file.
+The application provides both a web interface to predict your data and routes to access the api for predictions.
 
-`config.ru` is a minimal Rack configuration for unicorn.
+# Install
 
-`run-tests.sh` runs a simplistic test and generates the API
-documentation below.
+    The required packages are stored in requirements.txt so if you want to run the app straight through Flask, this can be done with `pip installl requirements.txt`
+    
+    Alternatively yoy can access the Heroku app on https://challenge-model-deployment.herokuapp.com/
+    
+    Or you could run the app from the Docker image, whatever suits your fancy.
 
-It uses `run-curl-tests.rb` which runs each command defined in
-`commands.yml`.
+# API
 
-## Install
+The API provides the following routes.
 
-    bundle install
-
-## Run the app
-
-    unicorn -p 7000
-
-## Run the tests
-
-    ./run-tests.sh
-
-# REST API
-
-The REST API to the example app is described below.
-
-## Get list of Things
+## Go through the web portal
 
 ### Request
 
-`GET /thing/`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/
+`GET /web/`
 
 ### Response
 
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 2
+This should give you access to the web portal.
 
-    []
-
-## Create a new Thing
+## 
 
 ### Request
 
